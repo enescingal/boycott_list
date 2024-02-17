@@ -1,4 +1,3 @@
-import 'package:boycott_list/product/service/manager/product_service_manager.dart';
 import 'package:boycott_list/product/state/view_model/product_view_model.dart';
 import 'package:get_it/get_it.dart';
 
