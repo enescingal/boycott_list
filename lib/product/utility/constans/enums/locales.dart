@@ -11,5 +11,6 @@ enum Locales {
   /// Locale value
   final Locale locale;
 
+  /// Locales get
   const Locales(this.locale);
 }
