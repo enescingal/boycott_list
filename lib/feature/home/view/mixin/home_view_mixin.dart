@@ -4,6 +4,8 @@ import 'package:boycott_list/product/init/product_localization.dart';
 import 'package:boycott_list/product/state/base/base_state.dart';
 import 'package:boycott_list/product/widget/index.dart';
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
+import 'package:widgets/widgets.dart';
 
 ///HomeViewMixin mixin
 mixin HomeViewMixin on BaseState<HomeView> {
@@ -14,6 +16,12 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   /// searchEditingController
   TextEditingController searchEditingController = TextEditingController();
+
+  /// nameController
+  TextEditingController nameController = TextEditingController();
+
+  /// descriptionController
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -31,9 +39,26 @@ mixin HomeViewMixin on BaseState<HomeView> {
     );
   }
 
+  /// ShowBoycott
+  void showBoycott() {
+    BoycottDialog.show(
+      context: context,
+      onTap: () {
+        checkBoycottValue ? SuccessDialog.show(title: 'title', context: context) : null;
+      },
+      nameController: nameController,
+      descriptionController: descriptionController,
+    );
+  }
+
+  /// checkBoycottValue name
+  bool get checkBoycottValue => nameController.text.ext.isNotNullOrNoEmpty;
+
   @override
   void dispose() {
     super.dispose();
     searchEditingController.dispose();
+    nameController.dispose();
+    descriptionController.dispose();
   }
 }

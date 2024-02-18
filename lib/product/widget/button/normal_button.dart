@@ -1,8 +1,10 @@
-import 'package:boycott_list/product/utility/constans/project_radius.dart';
 import 'package:flutter/material.dart';
+import 'package:gen/gen.dart';
+import 'package:kartal/kartal.dart';
 
-/// radius is 20
+/// Normal Button class
 final class NormalButton extends StatelessWidget {
+  /// Normal Button
   const NormalButton({required this.title, required this.onPressed, super.key});
 
   /// title text
@@ -14,10 +16,20 @@ final class NormalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      /// todo:
-      radius: ProjectRadius.normal.value,
       onTap: onPressed,
-      child: Text(title),
+      child: Container(
+        padding: context.padding.horizontalNormal + context.padding.verticalLow,
+        decoration: BoxDecoration(
+          color: ColorName.green,
+          borderRadius: context.border.lowBorderRadius,
+        ),
+        child: Text(
+          title,
+          style: context.general.textTheme.titleMedium?.copyWith(
+            color: ColorName.white,
+          ),
+        ),
+      ),
     );
   }
 }
