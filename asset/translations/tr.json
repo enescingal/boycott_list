@@ -10,6 +10,11 @@
     "dialog": {
         "language": {
             "title": "Lütfen değiştirmek istediğiniz dili seçiniz"
+        },
+        "boycott": {
+            "title": "Boykot önerisinde bulunarak uygulamamızı geliştirmemize destek olabilirsiniz",
+            "name": "Şirket Adı",
+            "description": "Açıklama"
         }
     },
     "general": {

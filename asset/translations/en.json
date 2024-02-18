@@ -10,6 +10,11 @@
     "dialog": {
         "language": {
             "title": "Please select the language you want to change"
+        },
+        "boycott": {
+            "title": "You can support us to improve our application by making a boycott suggestion",
+            "name": "Company Name",
+            "description": "Description"
         }
     },
     "general": {

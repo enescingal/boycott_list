@@ -1,5 +1,6 @@
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/utility/constans/enums/locales.dart';
+import 'package:boycott_list/product/widget/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
@@ -30,12 +31,8 @@ final class LanguageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        LocaleKeys.dialog_language_title.tr(),
-        textAlign: TextAlign.center,
-        style: context.general.textTheme.titleMedium,
-      ),
+    return NormalDialog(
+      title: LocaleKeys.dialog_language_title.tr(),
       content: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
