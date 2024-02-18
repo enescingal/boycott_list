@@ -26,9 +26,20 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
-        appBar: const HomeAppBar(),
+        floatingActionButton: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.qr_code_scanner),
+        ),
+        appBar: _appBar(),
         body: _body(),
       ),
+    );
+  }
+
+  HomeAppBar _appBar() {
+    return HomeAppBar(
+      onTapLanguage: showLanguage,
+      onTapBoycott: () {},
     );
   }
 

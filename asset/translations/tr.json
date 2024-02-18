@@ -1,16 +1,24 @@
 {
     "home": {
-        "title": "Ana Sayfa"
+        "appbarTitle": "Boykot Listesi",
+        "menu": {
+            "ads": "Reklam izleyerek destek ol",
+            "language": "Dil değiştir",
+            "boycottSuggest": "Boykot önerisinde bulun"
+        }
+    },
+    "dialog": {
+        "language": {
+            "title": "Lütfen değiştirmek istediğiniz dili seçiniz"
+        }
     },
     "general": {
         "button": {
-            "save": "Kaydet {}"
+            "save": "Kaydet",
+            "cancel": "Vazgeç"
         },
-        "dialog": {
-            "version": {
-                "title": "Versiyon",
-                "content": "Versiyon bilgisi"
-            }
+        "input": {
+            "searchHome": "Barkod veya Marka adı yazınız"
         }
     }
 }

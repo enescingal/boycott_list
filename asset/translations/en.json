@@ -1,16 +1,24 @@
 {
     "home": {
-        "title": "Home Page"
+        "appbarTitle": "Boycott List",
+        "menu": {
+            "ads": "Support by watching ads",
+            "language": "Change language",
+            "boycottSuggest": "Suggest a boycott"
+        }
+    },
+    "dialog": {
+        "language": {
+            "title": "Please select the language you want to change"
+        }
     },
     "general": {
         "button": {
-            "save": "Save {}"
+            "save": "Save",
+            "cancel": "Cancel"
         },
-        "dialog": {
-            "version": {
-                "title": "Version",
-                "content": "Version info"
-            }
+        "input": {
+            "searchHome": "Write barcode or brand name"
         }
     }
 }

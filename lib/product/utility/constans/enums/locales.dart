@@ -6,7 +6,10 @@ enum Locales {
   tr(Locale('tr', 'TR')),
 
   /// English locale
-  en(Locale('en', 'US'));
+  en(Locale('en', 'US')),
+
+  /// English locale
+  ar(Locale('ar', 'AR'));
 
   /// Locale value
   final Locale locale;
