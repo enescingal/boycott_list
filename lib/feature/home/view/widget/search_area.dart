@@ -1,4 +1,6 @@
+import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/widget/input/normal_input_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
 import 'package:kartal/kartal.dart';
@@ -29,7 +31,7 @@ final class SearchArea extends StatelessWidget {
         ),
       ),
       child: NormalInputField(
-        hintText: 'Barkod veya Marka adı yazınız',
+        hintText: LocaleKeys.general_input_searchHome.tr(),
         controller: searchEditingController,
         suffixIcon: IconButton(
           onPressed: onTapBarcode,
