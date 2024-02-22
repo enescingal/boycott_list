@@ -34,7 +34,7 @@ final class FilterText extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: context.padding.horizontalNormal,
+          padding: context.padding.horizontalNormal + (context.padding.onlyBottomLow / 2),
           margin: context.padding.horizontalLow,
           decoration: _decoration(),
           child: _name(context),

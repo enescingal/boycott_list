@@ -38,7 +38,9 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     return FloatingActionButton(
       backgroundColor: ColorName.green,
       child: const Icon(Icons.qr_code_scanner, color: ColorName.white),
-      onPressed: () {},
+      onPressed: () async {
+        await onScan();
+      },
     );
   }
 
@@ -66,7 +68,9 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
   SearchArea _searchArea(BuildContext context) {
     return SearchArea(
       searchEditingController: searchEditingController,
-      onTapBarcode: () {},
+      onTapBarcode: () async {
+        await onScan();
+      },
     );
   }
 
@@ -83,10 +87,14 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     );
   }
 
-  BoycottListWidget _company() {
-    return const BoycottListWidget(
-      imageUrl: '',
-      companyName: 'CompanyName',
+  CompanyWidget _company() {
+    return CompanyWidget(
+      company: Company(
+        name: 'name',
+        image:
+            r'https://cc-prod.scene7.com/is/image/CCProdAuthor/adobe-firefly-marquee-text-to-image-0-desktop-1000x1000?$pjpeg$&jpegSize=300&wid=1000',
+        description: 'description description description description',
+      ),
     );
   }
 

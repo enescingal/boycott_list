@@ -64,9 +64,9 @@ final class BoycottDialog extends StatelessWidget {
             onFieldSubmitted: (value) => onTap,
           ),
           context.sized.emptySizedHeightBoxLow,
-          NormalButton(
+          NormalTextButton(
             title: LocaleKeys.general_button_save.tr(),
-            onPressed: onTap,
+            onTap: onTap,
           ),
         ],
       ),
