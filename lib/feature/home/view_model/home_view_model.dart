@@ -8,6 +8,7 @@ final class HomeViewModel extends BaseCubit<HomeState> {
       : super(
           const HomeState(
             selectedFilterIndex: 0,
+            searchText: '',
           ),
         );
 
@@ -26,5 +27,9 @@ final class HomeViewModel extends BaseCubit<HomeState> {
     emit(
       state.copyWith(selectedFilterIndex: newIndex),
     );
+  }
+
+  Future<void> getCompanyList({String? barcode}) {
+    return Future.value();
   }
 }

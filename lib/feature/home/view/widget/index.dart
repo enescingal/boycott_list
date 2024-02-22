@@ -1,4 +1,4 @@
-export 'boycott_list.dart';
+export 'company_widget.dart';
 export 'cached_image.dart';
 export 'filter_text.dart';
 export 'home_app_bar.dart';

@@ -1,6 +1,7 @@
 {
     "home": {
         "appbarTitle": "Boycott List",
+        "why": "Why",
         "menu": {
             "ads": "Support by watching ads",
             "language": "Change language",
