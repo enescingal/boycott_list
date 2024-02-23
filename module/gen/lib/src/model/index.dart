@@ -1,4 +1,4 @@
 export 'attributes.dart';
 export 'book.dart';
-export 'company.dart';
+export 'response/index.dart';
 export 'user.dart';

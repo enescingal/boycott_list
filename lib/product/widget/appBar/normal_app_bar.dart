@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +7,27 @@ import 'package:gen/gen.dart';
 import 'package:kartal/kartal.dart';
 
 /// HomeAppBar class
-final class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+final class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// HomeAppBar const
-  const HomeAppBar({
-    required this.onTapLanguage,
-    required this.onTapBoycott,
+  const NormalAppBar({
+    this.onTapLanguage,
+    this.onTapBoycott,
     super.key,
+    this.showMenu = true,
+    this.showBack = false,
   });
 
   /// LanguageOnTap
-  final VoidCallback onTapLanguage;
+  final VoidCallback? onTapLanguage;
 
   /// onTapBoycott
-  final VoidCallback onTapBoycott;
+  final VoidCallback? onTapBoycott;
+
+  /// actions
+  final bool showMenu;
+
+  /// actions
+  final bool showBack;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +35,16 @@ final class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       centerTitle: true,
       title: _title(context),
+      leading: showBack
+          ? IconButton(
+              onPressed: () {
+                context.router.back();
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            )
+          : const SizedBox(),
       actions: [
-        _menu(context),
+        if (showMenu) _menu(context),
       ],
     );
   }

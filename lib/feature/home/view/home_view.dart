@@ -3,7 +3,9 @@ import 'package:boycott_list/feature/home/view/mixin/home_view_mixin.dart';
 import 'package:boycott_list/feature/home/view/widget/index.dart';
 import 'package:boycott_list/feature/home/view_model/home_view_model.dart';
 import 'package:boycott_list/feature/home/view_model/state/home_state.dart';
+import 'package:boycott_list/product/navigation/app_router.dart';
 import 'package:boycott_list/product/state/base/base_state.dart';
+import 'package:boycott_list/product/widget/appBar/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
@@ -44,8 +46,8 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     );
   }
 
-  HomeAppBar _appBar() {
-    return HomeAppBar(
+  NormalAppBar _appBar() {
+    return NormalAppBar(
       onTapLanguage: showLanguage,
       onTapBoycott: showBoycott,
     );
@@ -57,11 +59,19 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
         return Column(
           children: [
             _searchArea(context),
-            _filters(context),
-            _companyList(context),
+            _category(context, state),
+            _companyList(context, state),
+            if (state.isLoading) _loading(context),
           ],
         );
       },
+    );
+  }
+
+  SizedBox _loading(BuildContext context) {
+    return SizedBox(
+      width: context.sized.highValue + context.sized.mediumValue,
+      child: Assets.lottie.loading.lottie(package: 'gen'),
     );
   }
 
@@ -74,52 +84,38 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     );
   }
 
-  Expanded _companyList(BuildContext context) {
+  Expanded _companyList(BuildContext context, HomeState state) {
     return Expanded(
-      flex: 12,
       child: Padding(
         padding: context.padding.horizontalNormal,
-        child: ListView.builder(
-          itemCount: 100,
-          itemBuilder: (context, index) => _company(),
-        ),
+        child: state.companyList.ext.isNotNullOrEmpty
+            ? ListView.builder(
+                controller: scrollController,
+                itemBuilder: (context, index) => CompanyWidget(
+                  company: state.companyList[index],
+                ),
+                itemCount: state.companyList.length,
+              )
+            : !state.isLoading
+                ? EmptyCompanyWidget(
+                    onTap: showBoycott,
+                  )
+                : const SizedBox(),
       ),
     );
   }
 
-  CompanyWidget _company() {
-    return CompanyWidget(
-      company: Company(
-        name: 'name',
-        image:
-            r'https://cc-prod.scene7.com/is/image/CCProdAuthor/adobe-firefly-marquee-text-to-image-0-desktop-1000x1000?$pjpeg$&jpegSize=300&wid=1000',
-        description: 'description description description description',
-      ),
-    );
-  }
-
-  Expanded _filters(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: context.padding.onlyBottomLow,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => _filterText(index),
-          itemCount: viewModel.filterList.length,
-        ),
-      ),
-    );
-  }
-
-  FilterText _filterText(int index) {
-    return FilterText(
-      onTap: () {
-        viewModel.changeSelectedIndex(index);
+  SelectedCategoryContainer _category(BuildContext context, HomeState state) {
+    return SelectedCategoryContainer(
+      category: state.categoryId,
+      onTap: () async {
+        final selectedCategory = await context.router.push(
+          CategoryRoute(categoryList: state.categoryList),
+        );
+        if (selectedCategory != null) {
+          await viewModel.changeSelectedId(selectedCategory as CategoryModel);
+        }
       },
-      selectedIndex: viewModel.state.selectedFilterIndex,
-      filterName: 'Filter Name ${index + 1}',
-      index: index,
     );
   }
 }

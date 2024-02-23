@@ -6,14 +6,16 @@
             "ads": "Reklam izleyerek destek ol",
             "language": "Dil değiştir",
             "boycottSuggest": "Boykot önerisinde bulun"
-        }
+        },
+        "selectedCategory": "Seçilen Kategori",
+        "emptyBoycott": "Herhangi bir boykot bulunamamıştır.\nYanlışlık olduğunu düşünüyorsanız öneride bulunabilirsiniz."
     },
     "dialog": {
         "language": {
             "title": "Lütfen değiştirmek istediğiniz dili seçiniz"
         },
         "boycott": {
-            "title": "Boykot önerisinde bulunarak uygulamamızı geliştirmemize destek olabilirsiniz",
+            "title": "Boykot önerisinde bulunarak uygulamamızı geliştirmemize destek olabilirsiniz.",
             "name": "Şirket Adı",
             "description": "Açıklama"
         }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 /// Manage your network error with screen
 final class ProductNetworkErrorManager {
@@ -11,5 +11,13 @@ final class ProductNetworkErrorManager {
     if (value == HttpStatus.unauthorized) {
       //
     }
+    //  else {
+    //   showDialog<void>(
+    //     context: context,
+    //     builder: (context) => const Dialog(
+    //       child: Text('data'),
+    //     ),
+    //   );
+    // }
   }
 }
