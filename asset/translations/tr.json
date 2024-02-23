@@ -2,6 +2,7 @@
     "home": {
         "appbarTitle": "Boykot Listesi",
         "why": "Neden",
+        "all": "Hepsi",
         "menu": {
             "ads": "Reklam izleyerek destek ol",
             "language": "Dil değiştir",
@@ -17,7 +18,8 @@
         "boycott": {
             "title": "Boykot önerisinde bulunarak uygulamamızı geliştirmemize destek olabilirsiniz.",
             "name": "Şirket Adı",
-            "description": "Açıklama"
+            "description": "Açıklama",
+            "noDescription": "Herhangi bir açıklama girilmemiştir."
         }
     },
     "general": {

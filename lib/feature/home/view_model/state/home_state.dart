@@ -9,14 +9,14 @@ final class HomeState extends Equatable {
     required this.categoryList,
     required this.companyList,
     required this.searchText,
-    required this.categoryId,
+    required this.selectedCategory,
   });
 
   /// isLoading
   final bool isLoading;
 
   /// filterList index
-  final String categoryId;
+  final CategoryModel selectedCategory;
 
   /// searchText
   final String searchText;
@@ -30,7 +30,7 @@ final class HomeState extends Equatable {
   @override
   List<Object?> get props => [
         isLoading,
-        categoryId,
+        selectedCategory,
         categoryList,
         companyList,
         searchText,
@@ -39,14 +39,14 @@ final class HomeState extends Equatable {
   /// copyWith
   HomeState copyWith({
     bool? isLoading,
-    String? categoryId,
+    CategoryModel? selectedCategory,
     String? searchText,
     List<CategoryModel>? categoryList,
     List<CompanyModel>? companyList,
   }) {
     return HomeState(
       isLoading: isLoading ?? this.isLoading,
-      categoryId: categoryId ?? this.categoryId,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
       searchText: searchText ?? this.searchText,
       categoryList: categoryList ?? this.categoryList,
       companyList: companyList ?? this.companyList,

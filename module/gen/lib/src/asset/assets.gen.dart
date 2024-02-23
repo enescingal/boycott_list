@@ -20,6 +20,20 @@ class $AssetsColorGen {
   List<String> get values => [colors];
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/boycott.png
+  AssetGenImage get boycott => const AssetGenImage('assets/images/boycott.png');
+
+  /// File path: assets/images/boycottPng.png
+  AssetGenImage get boycottPng =>
+      const AssetGenImage('assets/images/boycottPng.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [boycott, boycottPng];
+}
+
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
@@ -38,6 +52,7 @@ class Assets {
   Assets._();
 
   static const $AssetsColorGen color = $AssetsColorGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 

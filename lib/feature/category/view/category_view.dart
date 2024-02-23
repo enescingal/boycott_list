@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:boycott_list/feature/category/view/view_mixin/category_view_mixin.dart';
 import 'package:boycott_list/feature/category/view_model/category_view_model.dart';
 import 'package:boycott_list/feature/category/view_model/state/category_state.dart';
+import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/state/base/base_state.dart';
 import 'package:boycott_list/product/widget/index.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
@@ -48,23 +50,65 @@ class _CategoryViewState extends BaseState<CategoryView> with CategoryViewMixin 
     );
   }
 
-  GridView _gridList(BuildContext context, CategoryState state) {
-    return GridView.count(
-      padding: context.padding.normal,
-      childAspectRatio: 1.5,
-      crossAxisCount: 3,
-      mainAxisSpacing: context.sized.lowValue,
-      crossAxisSpacing: context.sized.lowValue,
+  Column _gridList(BuildContext context, CategoryState state) {
+    return Column(
       children: [
-        ...List.generate(
-          state.categoryList.length,
-          (index) => _container(context, state, index),
-        ),
+        _all(context),
+        _list(context, state),
       ],
     );
   }
 
-  GestureDetector _container(BuildContext context, CategoryState state, int index) {
+  Expanded _list(BuildContext context, CategoryState state) {
+    return Expanded(
+      child: GridView.count(
+        padding: context.padding.normal,
+        childAspectRatio: 1.5,
+        crossAxisCount: 3,
+        mainAxisSpacing: context.sized.lowValue,
+        crossAxisSpacing: context.sized.lowValue,
+        children: [
+          ...List.generate(
+            state.categoryList.length,
+            (index) => _container(context, state, index),
+          ),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector _all(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.router.pop<CategoryModel>(
+          CategoryModel(
+            name: LocaleKeys.home_all.tr(),
+          ),
+        );
+      },
+      child: Container(
+        width: context.sized.width,
+        margin: context.padding.horizontalNormal + context.padding.onlyTopNormal,
+        padding: context.padding.horizontalNormal + context.padding.verticalLow,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: ColorName.red,
+          ),
+          borderRadius: context.border.lowBorderRadius,
+        ),
+        child: Text(
+          LocaleKeys.home_all.tr(),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _container(
+    BuildContext context,
+    CategoryState state,
+    int index,
+  ) {
     return GestureDetector(
       onTap: () {
         context.router.pop<CategoryModel>(state.categoryList[index]);
@@ -79,7 +123,7 @@ class _CategoryViewState extends BaseState<CategoryView> with CategoryViewMixin 
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _image(),
+            _image(state, index),
             _name(state, index),
           ],
         ),
@@ -94,9 +138,9 @@ class _CategoryViewState extends BaseState<CategoryView> with CategoryViewMixin 
     );
   }
 
-  CachedImage _image() {
-    return const CachedImage(
-      imageUrl: '',
+  CachedImage _image(CategoryState state, int index) {
+    return CachedImage(
+      imageUrl: state.categoryList[index].logo ?? '',
     );
   }
 }

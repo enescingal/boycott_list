@@ -17,36 +17,38 @@ final class EmptyCompanyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Assets.lottie.empty.lottie(package: 'gen', width: context.sized.highValue * 3),
-        Text(
-          LocaleKeys.home_emptyBoycott.tr(),
-          textAlign: TextAlign.center,
-          style: context.general.textTheme.titleMedium,
-        ),
-        context.sized.emptySizedHeightBoxLow,
-        TextButton(
-          onPressed: onTap,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                LocaleKeys.home_menu_boycottSuggest.tr(),
-                style: context.general.textTheme.titleMedium?.copyWith(
-                  color: ColorName.red,
-                ),
-              ),
-              context.sized.emptySizedWidthBoxLow3x,
-              Icon(
-                Icons.back_hand_outlined,
-                color: ColorName.red,
-                size: context.sized.normalValue,
-              ),
-            ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Assets.lottie.empty.lottie(package: 'gen', width: context.sized.highValue * 2),
+          Text(
+            LocaleKeys.home_emptyBoycott.tr(),
+            textAlign: TextAlign.center,
+            style: context.general.textTheme.titleMedium,
           ),
-        ),
-      ],
+          context.sized.emptySizedHeightBoxLow,
+          TextButton(
+            onPressed: onTap,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  LocaleKeys.home_menu_boycottSuggest.tr(),
+                  style: context.general.textTheme.titleMedium?.copyWith(
+                    color: ColorName.red,
+                  ),
+                ),
+                context.sized.emptySizedWidthBoxLow3x,
+                Icon(
+                  Icons.back_hand_outlined,
+                  color: ColorName.red,
+                  size: context.sized.normalValue,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

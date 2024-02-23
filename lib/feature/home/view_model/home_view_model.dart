@@ -1,7 +1,9 @@
 import 'package:boycott_list/feature/home/view_model/state/home_state.dart';
+import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/service/interface/category_operation.dart';
 import 'package:boycott_list/product/service/interface/company_operation.dart';
 import 'package:boycott_list/product/state/base/base_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:gen/gen.dart';
 import 'package:kartal/kartal.dart';
 
@@ -15,11 +17,14 @@ final class HomeViewModel extends BaseCubit<HomeState> {
         _companyOperation = companyOperation,
         super(
           HomeState(
-            categoryId: 'All',
+            /// TODO: first category add !
+            selectedCategory: CategoryModel(
+              name: LocaleKeys.home_all.tr(),
+            ),
             searchText: '',
             // ignore: prefer_const_literals_to_create_immutables
             companyList: [],
-            // ignore: prefer_const_literals_to_create_immutables
+            // ignore: prefer_const_literals_to_create_immutables", prefer_const_literals_to_create_immutables
             categoryList: [], isLoading: false,
           ),
         );
@@ -46,10 +51,10 @@ final class HomeViewModel extends BaseCubit<HomeState> {
   }
 
   /// change selectedFilterIndex
-  Future<void> changeSelectedId(CategoryModel selectedCategory) async {
+  Future<void> changeSelected(CategoryModel selectedCategory) async {
     clearFilter(clearSearch: true);
     emit(
-      state.copyWith(categoryId: selectedCategory.id),
+      state.copyWith(selectedCategory: selectedCategory),
     );
     await getCompanyList();
   }
@@ -87,7 +92,7 @@ final class HomeViewModel extends BaseCubit<HomeState> {
     if (!endOfFile) {
       changeLoading(true);
       final companyList = await _companyOperation.getCompany(
-        categoryId: state.categoryId,
+        categoryId: state.selectedCategory.id,
         search: state.searchText,
         page: pageIndex,
         limit: 10,
@@ -102,8 +107,8 @@ final class HomeViewModel extends BaseCubit<HomeState> {
               ),
           ),
         );
-        checkEndOfFile(modelLength: companyList.data?.length ?? 0);
       }
+      checkEndOfFile(modelLength: companyList.data?.length ?? 0);
     }
   }
 
@@ -122,11 +127,19 @@ final class HomeViewModel extends BaseCubit<HomeState> {
     bool clearSearch = false,
     bool clearCategory = false,
     bool clearPageIndex = true,
+    bool clearEndOfFile = true,
   }) {
     if (clearList) emit(state.copyWith(companyList: []));
     if (clearSearch) emit(state.copyWith(searchText: ''));
-    if (clearCategory) emit(state.copyWith(categoryId: ''));
+    if (clearCategory) {
+      emit(
+        state.copyWith(
+          selectedCategory: state.categoryList.first,
+        ),
+      );
+    }
     if (clearPageIndex) pageIndex = 1;
+    if (clearEndOfFile) endOfFile = false;
   }
 
   /// viewModelInitState

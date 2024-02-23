@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/widget/input/normal_input_field.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,9 +11,10 @@ import 'package:kartal/kartal.dart';
 /// SearchArea class
 final class SearchArea extends StatelessWidget {
   /// SearchArea const
-  const SearchArea({
+  SearchArea({
     required this.searchEditingController,
     required this.onTapBarcode,
+    required this.onSearch,
     super.key,
   });
 
@@ -20,6 +23,12 @@ final class SearchArea extends StatelessWidget {
 
   /// onTap
   final VoidCallback onTapBarcode;
+
+  /// onSearch
+  final Function(String) onSearch;
+
+  /// timer
+  Timer? _debounce;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +46,20 @@ final class SearchArea extends StatelessWidget {
         textInputFormatter: [
           FilteringTextInputFormatter.deny(RegExp('^ ')),
         ],
+        onChanged: (value) {
+          if (_debounce?.isActive ?? false) _debounce!.cancel();
+          _debounce = Timer(const Duration(milliseconds: 1500), () {
+            onSearch(value);
+          });
+        },
         textInputAction: TextInputAction.search,
-        onFieldSubmitted: (value) {},
+        onFieldSubmitted: (value) {
+          onSearch(value);
+          final currentScope = FocusScope.of(context);
+          if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
+        },
         suffixIcon: IconButton(
           onPressed: onTapBarcode,
           icon: const Icon(
