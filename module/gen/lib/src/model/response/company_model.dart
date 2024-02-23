@@ -11,7 +11,9 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
   CompanyModel({
     this.id,
     this.name,
+    this.names,
     this.description,
+    this.descriptions,
     this.logo,
     this.barcodes,
     this.active,
@@ -23,7 +25,9 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
   factory CompanyModel.fromJson(Map<String, dynamic> json) => _$CompanyModelFromJson(json);
   String? id;
   String? name;
+  String? names;
   String? description;
+  String? descriptions;
   String? logo;
   String? barcodes;
   bool? active;
@@ -41,7 +45,9 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
   List<Object?> get props => [
         id,
         name,
+        names,
         description,
+        descriptions,
         logo,
         barcodes,
         active,
@@ -53,7 +59,9 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
   CompanyModel copyWith({
     String? id,
     String? name,
+    String? names,
     String? description,
+    String? descriptions,
     String? logo,
     String? barcodes,
     bool? active,
@@ -64,7 +72,9 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
     return CompanyModel(
       id: id ?? this.id,
       name: name ?? this.name,
+      names: names ?? this.names,
       description: description ?? this.description,
+      descriptions: descriptions ?? this.descriptions,
       logo: logo ?? this.logo,
       barcodes: barcodes ?? this.barcodes,
       active: active ?? this.active,

@@ -2,6 +2,7 @@
     "home": {
         "appbarTitle": "Boycott List",
         "why": "Why",
+        "all": "All",
         "menu": {
             "ads": "Support by watching ads",
             "language": "Change language",
@@ -17,7 +18,8 @@
         "boycott": {
             "title": "You can support us to improve our application by making a boycott suggestion.",
             "name": "Company Name",
-            "description": "Description"
+            "description": "Description",
+            "noDescription": "No description has been entered."
         }
     },
     "general": {

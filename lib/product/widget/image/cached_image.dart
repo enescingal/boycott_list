@@ -8,17 +8,21 @@ final class CachedImage extends StatelessWidget {
   /// CachedImage const
   const CachedImage({
     required this.imageUrl,
+    this.size,
     super.key,
   });
 
   /// imageUrl
   final String imageUrl;
 
+  /// size
+  final double? size;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: context.sized.mediumValue,
-      height: context.sized.mediumValue,
+      width: size ?? context.sized.mediumValue,
+      height: size ?? context.sized.mediumValue,
       child: CachedNetworkImage(
         imageUrl: imageUrl,
         imageBuilder: (context, imageProvider) => _decoration(imageProvider),

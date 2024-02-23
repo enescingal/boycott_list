@@ -28,10 +28,18 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => viewModel,
-      child: Scaffold(
-        floatingActionButton: _floatingButton(),
-        appBar: _appBar(),
-        body: _body(),
+      child: GestureDetector(
+        onTap: () {
+          final currentScope = FocusScope.of(context);
+          if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
+        },
+        child: Scaffold(
+          floatingActionButton: _floatingButton(),
+          appBar: _appBar(),
+          body: _body(),
+        ),
       ),
     );
   }
@@ -81,6 +89,9 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
       onTapBarcode: () async {
         await onScan();
       },
+      onSearch: (String newSearch) {
+        viewModel.scanBarcode(newSearch);
+      },
     );
   }
 
@@ -107,13 +118,13 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
 
   SelectedCategoryContainer _category(BuildContext context, HomeState state) {
     return SelectedCategoryContainer(
-      category: state.categoryId,
+      category: state.selectedCategory.name ?? '',
       onTap: () async {
         final selectedCategory = await context.router.push(
           CategoryRoute(categoryList: state.categoryList),
         );
         if (selectedCategory != null) {
-          await viewModel.changeSelectedId(selectedCategory as CategoryModel);
+          await viewModel.changeSelected(selectedCategory as CategoryModel);
         }
       },
     );

@@ -1,4 +1,3 @@
-import 'package:boycott_list/feature/home/view/widget/index.dart';
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/widget/button/index.dart';
 import 'package:boycott_list/product/widget/index.dart';
@@ -40,10 +39,15 @@ final class WhyDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CachedImage(
+            size: context.sized.mediumValue * 2,
             imageUrl: companyModel.logo ?? '',
           ),
           context.sized.emptySizedHeightBoxLow,
-          Text(companyModel.description ?? ''),
+          if (companyModel.description.ext.isNotNullOrNoEmpty) Text(companyModel.description!),
+          if (companyModel.description.ext.isNullOrEmpty)
+            Text(
+              LocaleKeys.dialog_boycott_noDescription.tr(),
+            ),
           NormalTextButton(
             title: LocaleKeys.general_button_cancel.tr(),
             color: ColorName.red,
