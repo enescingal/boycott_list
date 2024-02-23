@@ -6,14 +6,16 @@
             "ads": "Support by watching ads",
             "language": "Change language",
             "boycottSuggest": "Suggest a boycott"
-        }
+        },
+        "selectedCategory": "Selected Category",
+        "emptyBoycott": "No boycott has been found.\nIf you think there is a mistake, you can make suggestions."
     },
     "dialog": {
         "language": {
             "title": "Please select the language you want to change"
         },
         "boycott": {
-            "title": "You can support us to improve our application by making a boycott suggestion",
+            "title": "You can support us to improve our application by making a boycott suggestion.",
             "name": "Company Name",
             "description": "Description"
         }

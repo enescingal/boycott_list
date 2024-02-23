@@ -16,13 +16,13 @@ final class WhyDialog extends StatelessWidget {
   });
 
   /// get Company Model
-  final Company companyModel;
+  final CompanyModel companyModel;
 
   ///show
 
   static Future<void> show({
     required BuildContext context,
-    required Company companyModel,
+    required CompanyModel companyModel,
   }) async {
     await showDialog<void>(
       context: context,
@@ -40,7 +40,7 @@ final class WhyDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CachedImage(
-            imageUrl: companyModel.image ?? '',
+            imageUrl: companyModel.logo ?? '',
           ),
           context.sized.emptySizedHeightBoxLow,
           Text(companyModel.description ?? ''),

@@ -1,5 +1,5 @@
 export 'company_widget.dart';
-export 'cached_image.dart';
+export 'empty_company_widget.dart';
 export 'filter_text.dart';
-export 'home_app_bar.dart';
 export 'search_area.dart';
+export 'selected_category_container.dart';

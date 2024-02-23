@@ -13,7 +13,7 @@ final class CompanyWidget extends StatelessWidget {
   });
 
   /// imageUrl
-  final Company company;
+  final CompanyModel company;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ final class CompanyWidget extends StatelessWidget {
 
   CachedImage _image() {
     return CachedImage(
-      imageUrl: company.image ?? '',
+      imageUrl: company.logo ?? '',
     );
   }
 

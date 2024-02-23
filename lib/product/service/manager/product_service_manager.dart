@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:boycott_list/product/init/config/app_environment.dart';
@@ -18,6 +19,16 @@ final class ProductNetworkManager extends NetworkManager<EmptyModel> {
   void listenErrorState({required ValueChanged<int> onErrorStatus}) {
     interceptors.add(
       InterceptorsWrapper(
+        onRequest: (options, handler) {
+          log(
+            'REQUEST==> PATH-> ${options.path} \n METHOD -> ${options.method} \n DATA-> ${options.data} \n QUERY-> ${options.queryParameters}',
+          );
+          return handler.next(options);
+        },
+        onResponse: (response, handler) {
+          log('RESPONSE==> \n ${response.data}');
+          return handler.next(response);
+        },
         onError: (e, handler) {
           onErrorStatus(e.response?.statusCode ?? HttpStatus.notFound);
           return handler.next(e);

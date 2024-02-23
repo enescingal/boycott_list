@@ -2,7 +2,11 @@ import 'package:boycott_list/feature/home/view/home_view.dart';
 import 'package:boycott_list/feature/home/view_model/home_view_model.dart';
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/init/product_localization.dart';
+import 'package:boycott_list/product/service/category_service.dart';
+import 'package:boycott_list/product/service/company_service.dart';
+import 'package:boycott_list/product/service/manager/index.dart';
 import 'package:boycott_list/product/state/base/base_state.dart';
+import 'package:boycott_list/product/state/container/index.dart';
 import 'package:boycott_list/product/widget/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +17,7 @@ import 'package:widgets/widgets.dart';
 ///HomeViewMixin mixin
 mixin HomeViewMixin on BaseState<HomeView> {
   late final HomeViewModel _viewModel;
+  late final ProductNetworkErrorManager _productNetworkErrorManager;
 
   /// viewModel
   HomeViewModel get viewModel => _viewModel;
@@ -26,10 +31,39 @@ mixin HomeViewMixin on BaseState<HomeView> {
   /// descriptionController
   TextEditingController descriptionController = TextEditingController();
 
+  /// scrollController
+  late final ScrollController scrollController = ScrollController()..addListener(_scrollListener);
+
   @override
   void initState() {
     super.initState();
-    _viewModel = HomeViewModel();
+    _productNetworkErrorManager = ProductNetworkErrorManager(context);
+    ProductStateItems.productNetworkManager.listenErrorState(
+      onErrorStatus: _productNetworkErrorManager.handleError,
+    );
+    _viewModel = HomeViewModel(
+      categoryOperation: CategoryService(productNetworkManager),
+      companyOperation: CompanyService(productNetworkManager),
+    );
+
+    viewModel
+      ..viewModelInitState()
+      ..changeLoading(true);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchEditingController.dispose();
+    nameController.dispose();
+    descriptionController.dispose();
+  }
+
+  /// _scrollListener
+  void _scrollListener() {
+    if (scrollController.position.maxScrollExtent == scrollController.offset) {
+      viewModel.getCompanyList(isLoad: true);
+    }
   }
 
   /// ShowLanguage
@@ -51,7 +85,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
       ScanMode.BARCODE,
     );
     descriptionController.text = barcodeText;
-    await viewModel.getCompanyList(barcode: barcodeText);
+    await viewModel.scanBarcode(barcodeText);
   }
 
   /// ShowBoycott
@@ -68,12 +102,4 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   /// checkBoycottValue name
   bool get checkBoycottValue => nameController.text.ext.isNotNullOrNoEmpty;
-
-  @override
-  void dispose() {
-    super.dispose();
-    searchEditingController.dispose();
-    nameController.dispose();
-    descriptionController.dispose();
-  }
 }

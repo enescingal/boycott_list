@@ -1,6 +1,3 @@
-/// Created by https://github.com/enescingal on 17/02/2024
-library;
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';

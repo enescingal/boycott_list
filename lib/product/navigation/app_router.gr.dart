@@ -15,13 +15,61 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CategoryRoute.name: (routeData) {
+      final args = routeData.argsAs<CategoryRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CategoryView(
+          categoryList: args.categoryList,
+          key: args.key,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomeView(),
       );
-    }
+    },
   };
+}
+
+/// generated route for
+/// [CategoryView]
+class CategoryRoute extends PageRouteInfo<CategoryRouteArgs> {
+  CategoryRoute({
+    required List<CategoryModel> categoryList,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CategoryRoute.name,
+          args: CategoryRouteArgs(
+            categoryList: categoryList,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CategoryRoute';
+
+  static const PageInfo<CategoryRouteArgs> page =
+      PageInfo<CategoryRouteArgs>(name);
+}
+
+class CategoryRouteArgs {
+  const CategoryRouteArgs({
+    required this.categoryList,
+    this.key,
+  });
+
+  final List<CategoryModel> categoryList;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CategoryRouteArgs{categoryList: $categoryList, key: $key}';
+  }
 }
 
 /// generated route for

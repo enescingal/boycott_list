@@ -1,27 +1,55 @@
 import 'package:equatable/equatable.dart';
+import 'package:gen/gen.dart';
 
 ///HomeState class
 final class HomeState extends Equatable {
   ///HomeState
-  const HomeState({
+  HomeState({
+    required this.isLoading,
+    required this.categoryList,
+    required this.companyList,
     required this.searchText,
-    required this.selectedFilterIndex,
+    required this.categoryId,
   });
 
+  /// isLoading
+  final bool isLoading;
+
   /// filterList index
-  final int selectedFilterIndex;
+  final String categoryId;
 
   /// searchText
   final String searchText;
 
+  /// categoryList
+  List<CategoryModel> categoryList;
+
+  /// CompanyModel
+  List<CompanyModel> companyList;
+
   @override
-  List<Object?> get props => [selectedFilterIndex, searchText];
+  List<Object?> get props => [
+        isLoading,
+        categoryId,
+        categoryList,
+        companyList,
+        searchText,
+      ];
 
   /// copyWith
-  HomeState copyWith({int? selectedFilterIndex, String? searchText}) {
+  HomeState copyWith({
+    bool? isLoading,
+    String? categoryId,
+    String? searchText,
+    List<CategoryModel>? categoryList,
+    List<CompanyModel>? companyList,
+  }) {
     return HomeState(
-      selectedFilterIndex: selectedFilterIndex ?? this.selectedFilterIndex,
+      isLoading: isLoading ?? this.isLoading,
+      categoryId: categoryId ?? this.categoryId,
       searchText: searchText ?? this.searchText,
+      categoryList: categoryList ?? this.categoryList,
+      companyList: companyList ?? this.companyList,
     );
   }
 }
