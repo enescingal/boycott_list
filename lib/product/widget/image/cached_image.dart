@@ -23,18 +23,20 @@ final class CachedImage extends StatelessWidget {
     return SizedBox(
       width: size ?? context.sized.mediumValue,
       height: size ?? context.sized.mediumValue,
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        imageBuilder: (context, imageProvider) => _decoration(imageProvider),
-        placeholder: (context, url) => _placeHolder(),
-        errorWidget: (context, url, error) => _error(),
-      ),
+      child: imageUrl.ext.isNotNullOrNoEmpty
+          ? CachedNetworkImage(
+              imageUrl: imageUrl,
+              imageBuilder: (context, imageProvider) => _decoration(imageProvider),
+              placeholder: (context, url) => _placeHolder(),
+              errorWidget: (context, url, error) => _error(context),
+            )
+          : _error(context),
     );
   }
 
-  Icon _error() {
-    return const Icon(
-      Icons.error,
+  Widget _error(BuildContext context) {
+    return ClipOval(
+      child: Assets.images.boycott.image(package: 'gen'),
     );
   }
 

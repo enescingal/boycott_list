@@ -102,8 +102,11 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
         child: state.companyList.ext.isNotNullOrEmpty
             ? ListView.builder(
                 controller: scrollController,
-                itemBuilder: (context, index) => CompanyWidget(
-                  company: state.companyList[index],
+                itemBuilder: (context, index) => Padding(
+                  padding: index == state.companyList.length - 1 ? context.padding.onlyBottomMedium : EdgeInsets.zero,
+                  child: CompanyWidget(
+                    company: state.companyList[index],
+                  ),
                 ),
                 itemCount: state.companyList.length,
               )

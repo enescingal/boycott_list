@@ -1,4 +1,3 @@
-import 'package:boycott_list/feature/home/view/widget/index.dart';
 import 'package:boycott_list/product/widget/index.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
