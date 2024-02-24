@@ -95,7 +95,7 @@ final class HomeViewModel extends BaseCubit<HomeState> {
         categoryId: state.selectedCategory.id,
         search: state.searchText,
         page: pageIndex,
-        limit: 10,
+        limit: 20,
       );
       changeLoading(false);
       if (companyList.data.ext.isNotNullOrEmpty) {
@@ -114,7 +114,7 @@ final class HomeViewModel extends BaseCubit<HomeState> {
 
   /// endOfFileCheck
   void checkEndOfFile({required int modelLength}) {
-    if (modelLength == 10) {
+    if (modelLength == 20) {
       endOfFile = false;
     } else {
       endOfFile = true;

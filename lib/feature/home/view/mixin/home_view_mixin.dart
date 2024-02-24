@@ -78,14 +78,16 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   /// onScan
   Future<void> onScan() async {
-    final barcodeText = await FlutterBarcodeScanner.scanBarcode(
-      '#FFCB2732',
-      LocaleKeys.general_button_cancel.tr(),
-      true,
-      ScanMode.BARCODE,
-    );
-    descriptionController.text = barcodeText;
-    await viewModel.scanBarcode(barcodeText);
+    if (!viewModel.state.isLoading) {
+      final barcodeText = await FlutterBarcodeScanner.scanBarcode(
+        '#FFCB2732',
+        LocaleKeys.general_button_cancel.tr(),
+        true,
+        ScanMode.BARCODE,
+      );
+      searchEditingController.text = barcodeText;
+      await viewModel.scanBarcode(barcodeText);
+    }
   }
 
   /// ShowBoycott
