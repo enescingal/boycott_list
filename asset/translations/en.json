@@ -25,10 +25,15 @@
     "general": {
         "button": {
             "save": "Save",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "ok": "Ok"
         },
         "input": {
             "searchHome": "Write barcode or brand name"
+        },
+        "error": {
+            "noInternet": "Please check your internet connection and try again.",
+            "default": "An error occurred, please try again later."
         }
     }
 }
