@@ -28,7 +28,8 @@
         "button": {
             "save": "Kaydet",
             "cancel": "Vazgeç",
-            "ok": "Tamam"
+            "ok": "Tamam",
+            "close":"Kapat"
         },
         "input": {
             "searchHome": "Barkod veya Marka adı yazınız"

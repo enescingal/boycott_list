@@ -28,7 +28,8 @@
         "button": {
             "save": "Save",
             "cancel": "Cancel",
-            "ok": "Ok"
+            "ok": "Ok",
+            "close": "Close"
         },
         "input": {
             "searchHome": "Write barcode or brand name"

@@ -34,7 +34,7 @@ final class WhyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NormalDialog(
-      title: companyModel.name ?? '',
+      title: '',
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -43,13 +43,19 @@ final class WhyDialog extends StatelessWidget {
             imageUrl: companyModel.logo ?? '',
           ),
           context.sized.emptySizedHeightBoxLow,
+          Text(
+            companyModel.name ?? '',
+            style: context.general.textTheme.titleMedium,
+          ),
+          context.sized.emptySizedHeightBoxLow3x,
           if (companyModel.description.ext.isNotNullOrNoEmpty) Text(companyModel.description!),
           if (companyModel.description.ext.isNullOrEmpty)
             Text(
               LocaleKeys.dialog_boycott_noDescription.tr(),
             ),
+          context.sized.emptySizedHeightBoxLow3x,
           NormalTextButton(
-            title: LocaleKeys.general_button_cancel.tr(),
+            title: LocaleKeys.general_button_close.tr(),
             color: ColorName.red,
             onTap: () {
               Navigator.pop(context);

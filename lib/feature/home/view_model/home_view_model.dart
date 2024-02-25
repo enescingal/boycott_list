@@ -104,6 +104,8 @@ final class HomeViewModel extends BaseCubit<HomeState> {
       ),
     );
     if (response.id.ext.isNotNullOrNoEmpty) {
+      nameController.clear();
+      descriptionController.clear();
       return true;
     } else {
       return false;
