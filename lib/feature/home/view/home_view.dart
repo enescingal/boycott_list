@@ -85,7 +85,7 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
 
   SearchArea _searchArea(BuildContext context) {
     return SearchArea(
-      searchEditingController: searchEditingController,
+      searchEditingController: viewModel.searchEditingController,
       onTapBarcode: () async {
         await onScan();
       },

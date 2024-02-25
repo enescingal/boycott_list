@@ -19,7 +19,9 @@
             "title": "You can support us to improve our application by making a boycott suggestion.",
             "name": "Company Name",
             "description": "Description",
-            "noDescription": "No description has been entered."
+            "noDescription": "No description has been entered.",
+            "validRequired": "Required field.",
+            "supportMessage": "Thank you for helping us improve the app."
         }
     },
     "general": {

@@ -2,8 +2,10 @@ import 'package:boycott_list/feature/home/view_model/state/home_state.dart';
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
 import 'package:boycott_list/product/service/interface/category_operation.dart';
 import 'package:boycott_list/product/service/interface/company_operation.dart';
+import 'package:boycott_list/product/service/interface/suggestion_operation.dart';
 import 'package:boycott_list/product/state/base/base_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
 import 'package:kartal/kartal.dart';
 
@@ -13,8 +15,10 @@ final class HomeViewModel extends BaseCubit<HomeState> {
   HomeViewModel({
     required CategoryOperation categoryOperation,
     required CompanyOperation companyOperation,
+    required SuggestionOperation suggestionOperation,
   })  : _categoryOperation = categoryOperation,
         _companyOperation = companyOperation,
+        _suggestionOperation = suggestionOperation,
         super(
           HomeState(
             /// TODO: first category add !
@@ -33,6 +37,18 @@ final class HomeViewModel extends BaseCubit<HomeState> {
 
   /// companyService
   final CompanyOperation _companyOperation;
+
+  /// companyService
+  final SuggestionOperation _suggestionOperation;
+
+  /// nameController
+  TextEditingController nameController = TextEditingController();
+
+  /// descriptionController
+  TextEditingController descriptionController = TextEditingController();
+
+  /// searchEditingController
+  TextEditingController searchEditingController = TextEditingController();
 
   /// pageIndex
   int pageIndex = 1;
@@ -77,6 +93,20 @@ final class HomeViewModel extends BaseCubit<HomeState> {
             ),
         ),
       );
+    }
+  }
+
+  Future<bool> saveSuggestion() async {
+    final response = await _suggestionOperation.suggestionCreate(
+      requestSuggestion: SuggestionCreate(
+        name: nameController.text,
+        description: descriptionController.text.ext.isNotNullOrNoEmpty ? descriptionController.text : null,
+      ),
+    );
+    if (response.id.ext.isNotNullOrNoEmpty) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -130,7 +160,10 @@ final class HomeViewModel extends BaseCubit<HomeState> {
   }) {
     if (clearList) emit(state.copyWith(companyList: []));
     if (clearCategory) emit(state.copyWith(categoryList: []));
-    if (clearSearch) emit(state.copyWith(searchText: ''));
+    if (clearSearch) {
+      emit(state.copyWith(searchText: ''));
+      searchEditingController.clear();
+    }
     if (clearPageIndex) pageIndex = 1;
     if (clearEndOfFile) endOfFile = false;
   }

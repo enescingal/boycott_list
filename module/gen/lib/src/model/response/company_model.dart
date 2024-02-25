@@ -29,11 +29,11 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
   String? description;
   String? descriptions;
   String? logo;
-  String? barcodes;
+  List<String>? barcodes;
   bool? active;
   String? createdAt;
   String? updatedAt;
-  String? categoryIds;
+  List<String>? categoryIds;
 
   @override
   CompanyModel fromJson(Map<String, dynamic> json) => CompanyModel.fromJson(json);
@@ -63,11 +63,11 @@ class CompanyModel extends INetworkModel<CompanyModel> with EquatableMixin {
     String? description,
     String? descriptions,
     String? logo,
-    String? barcodes,
+    List<String>? barcodes,
     bool? active,
     String? createdAt,
     String? updatedAt,
-    String? categoryIds,
+    List<String>? categoryIds,
   }) {
     return CompanyModel(
       id: id ?? this.id,

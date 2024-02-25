@@ -19,7 +19,9 @@
             "title": "Boykot önerisinde bulunarak uygulamamızı geliştirmemize destek olabilirsiniz.",
             "name": "Şirket Adı",
             "description": "Açıklama",
-            "noDescription": "Herhangi bir açıklama girilmemiştir."
+            "noDescription": "Herhangi bir açıklama girilmemiştir.",
+            "validRequired": "Doldurulması zorunlu alan.",
+            "supportMessage": "Uygulamayı geliştirmemize yardımcı olduğunuz için teşekkür ederiz."
         }
     },
     "general": {
