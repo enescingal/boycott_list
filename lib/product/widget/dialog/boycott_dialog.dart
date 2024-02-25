@@ -52,6 +52,12 @@ final class BoycottDialog extends StatelessWidget {
             focusNode: FocusNode(),
             hintText: LocaleKeys.dialog_boycott_name.tr(),
             controller: nameController,
+            validator: (value) {
+              if (value.ext.isNullOrEmpty) {
+                return LocaleKeys.dialog_boycott_validRequired.tr();
+              }
+              return null;
+            },
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (value) => FocusScope.of(context).nextFocus(),
           ),

@@ -19,7 +19,9 @@
             "title": "يمكنك دعمنا لتحسين تطبيقنا من خلال تقديم اقتراح المقاطعة",
             "name": "اسم الشركة",
             "description": "وصف",
-            "noDescription": "تم إدخال أي وصف"
+            "noDescription": "تم إدخال أي وصف",
+            "validRequired": "حقل الزامي",
+            "supportMessage": "شكرا لمساعدتنا في تحسين التطبيق"
         }
     },
     "general": {

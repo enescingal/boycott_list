@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:boycott_list/feature/home/view/home_view.dart';
 import 'package:boycott_list/feature/home/view_model/home_view_model.dart';
 import 'package:boycott_list/product/init/language/locale_keys.g.dart';
@@ -5,6 +6,7 @@ import 'package:boycott_list/product/init/product_localization.dart';
 import 'package:boycott_list/product/service/category_service.dart';
 import 'package:boycott_list/product/service/company_service.dart';
 import 'package:boycott_list/product/service/manager/index.dart';
+import 'package:boycott_list/product/service/suggestion_service.dart';
 import 'package:boycott_list/product/state/base/base_state.dart';
 import 'package:boycott_list/product/state/container/index.dart';
 import 'package:boycott_list/product/widget/index.dart';
@@ -12,7 +14,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:kartal/kartal.dart';
-import 'package:widgets/widgets.dart';
 
 ///HomeViewMixin mixin
 mixin HomeViewMixin on BaseState<HomeView> {
@@ -22,15 +23,6 @@ mixin HomeViewMixin on BaseState<HomeView> {
   /// viewModel
   HomeViewModel get viewModel => _viewModel;
 
-  /// searchEditingController
-  TextEditingController searchEditingController = TextEditingController();
-
-  /// nameController
-  TextEditingController nameController = TextEditingController();
-
-  /// descriptionController
-  TextEditingController descriptionController = TextEditingController();
-
   /// scrollController
   late final ScrollController scrollController = ScrollController()..addListener(_scrollListener);
 
@@ -38,12 +30,14 @@ mixin HomeViewMixin on BaseState<HomeView> {
   void initState() {
     super.initState();
     _productNetworkErrorManager = ProductNetworkErrorManager(context);
-
-    _initNetwork();
-
     _viewModel = HomeViewModel(
       categoryOperation: CategoryService(productNetworkManager),
       companyOperation: CompanyService(productNetworkManager),
+      suggestionOperation: SuggestionService(productNetworkManager),
+    );
+    ProductStateItems.productNetworkManager.listenErrorState(
+      onErrorStatus: _productNetworkErrorManager.handleError,
+      context: context,
     );
 
     viewModel
@@ -51,21 +45,12 @@ mixin HomeViewMixin on BaseState<HomeView> {
       ..changeLoading(true);
   }
 
-  void _initNetwork() {
-    Future.delayed(Duration.zero, () {
-      ProductStateItems.productNetworkManager.acceptLanguage = context.locale.languageCode;
-      ProductStateItems.productNetworkManager.listenErrorState(
-        onErrorStatus: _productNetworkErrorManager.handleError,
-      );
-    });
-  }
-
   @override
   void dispose() {
     super.dispose();
-    searchEditingController.dispose();
-    nameController.dispose();
-    descriptionController.dispose();
+    viewModel.searchEditingController.dispose();
+    viewModel.nameController.dispose();
+    viewModel.descriptionController.dispose();
   }
 
   /// _scrollListener
@@ -81,7 +66,6 @@ mixin HomeViewMixin on BaseState<HomeView> {
       context: context,
       locales: (locales) async {
         await ProductLocalization.updateLanguage(context: context, value: locales);
-        ProductStateItems.productNetworkManager.acceptLanguage = context.locale.languageCode;
         await Future.delayed(Duration.zero, () {
           viewModel.viewModelInitState();
         });
@@ -98,8 +82,10 @@ mixin HomeViewMixin on BaseState<HomeView> {
         true,
         ScanMode.BARCODE,
       );
-      searchEditingController.text = barcodeText;
-      await viewModel.scanBarcode(barcodeText);
+      if (barcodeText.ext.isNotNullOrNoEmpty || barcodeText != '-1') {
+        viewModel.searchEditingController.text = barcodeText;
+        await viewModel.scanBarcode(barcodeText);
+      }
     }
   }
 
@@ -107,14 +93,17 @@ mixin HomeViewMixin on BaseState<HomeView> {
   void showBoycott() {
     BoycottDialog.show(
       context: context,
-      onTap: () {
-        checkBoycottValue ? SuccessDialog.show(title: 'title', context: context) : null;
+      onTap: () async {
+        if (viewModel.nameController.text.ext.isNotNullOrNoEmpty) {
+          final suggestion = await viewModel.saveSuggestion();
+          if (suggestion && context.mounted) {
+            await context.router.pop();
+            await SuccessDialog.show(title: 'title', context: context);
+          }
+        }
       },
-      nameController: nameController,
-      descriptionController: descriptionController,
+      nameController: viewModel.nameController,
+      descriptionController: viewModel.descriptionController,
     );
   }
-
-  /// checkBoycottValue name
-  bool get checkBoycottValue => nameController.text.ext.isNotNullOrNoEmpty;
 }

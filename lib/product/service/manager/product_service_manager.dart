@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:boycott_list/product/init/config/app_environment.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vexana/vexana.dart';
 
@@ -14,16 +15,16 @@ final class ProductNetworkManager extends NetworkManager<EmptyModel> {
           ),
         );
 
-  /// locale Code
-  String acceptLanguage = 'en';
-
   /// Handle error
   /// [onErrorStatus] is error status code [HttStatus]
-  void listenErrorState({required ValueChanged<int> onErrorStatus}) {
+  void listenErrorState({
+    required ValueChanged<int> onErrorStatus,
+    required BuildContext context,
+  }) {
     interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          options.headers['Accept-Language'] = acceptLanguage;
+          options.headers['Accept-Language'] = context.locale.languageCode;
           log(
             'REQUEST==> PATH-> ${options.path} \n METHOD -> ${options.method} \n DATA-> ${options.data} \n QUERY-> ${options.queryParameters} \n ${options.headers}',
           );

@@ -12,7 +12,12 @@ final class CompanyService extends CompanyOperation {
   final INetworkManager<EmptyModel> _networkManager;
 
   @override
-  Future<CompanyPaginationModel> getCompany({int? page, int? limit, String? search, String? categoryId}) async {
+  Future<CompanyPaginationModel> getCompany({
+    int? page,
+    int? limit,
+    String? search,
+    String? categoryId,
+  }) async {
     final queryParameters = <String, dynamic>{};
     if (page != null) queryParameters['page'] = page;
     if (limit != null) queryParameters['limit'] = limit;
