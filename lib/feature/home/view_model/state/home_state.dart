@@ -16,7 +16,7 @@ final class HomeState extends Equatable {
   final bool isLoading;
 
   /// filterList index
-  final CategoryModel selectedCategory;
+  late final CategoryModel selectedCategory;
 
   /// searchText
   final String searchText;

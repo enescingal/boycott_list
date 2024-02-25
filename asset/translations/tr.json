@@ -25,10 +25,15 @@
     "general": {
         "button": {
             "save": "Kaydet",
-            "cancel": "Vazgeç"
+            "cancel": "Vazgeç",
+            "ok": "Tamam"
         },
         "input": {
             "searchHome": "Barkod veya Marka adı yazınız"
+        },
+        "error": {
+            "noInternet": "Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz.",
+            "default": "Bir hata oluştu lütfen daha sonra tekrar deneyiniz."
         }
     }
 }

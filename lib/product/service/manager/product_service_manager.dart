@@ -14,14 +14,18 @@ final class ProductNetworkManager extends NetworkManager<EmptyModel> {
           ),
         );
 
+  /// locale Code
+  String acceptLanguage = 'en';
+
   /// Handle error
   /// [onErrorStatus] is error status code [HttStatus]
   void listenErrorState({required ValueChanged<int> onErrorStatus}) {
     interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
+          options.headers['Accept-Language'] = acceptLanguage;
           log(
-            'REQUEST==> PATH-> ${options.path} \n METHOD -> ${options.method} \n DATA-> ${options.data} \n QUERY-> ${options.queryParameters}',
+            'REQUEST==> PATH-> ${options.path} \n METHOD -> ${options.method} \n DATA-> ${options.data} \n QUERY-> ${options.queryParameters} \n ${options.headers}',
           );
           return handler.next(options);
         },

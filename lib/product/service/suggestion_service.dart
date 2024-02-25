@@ -7,4 +7,14 @@ final class SuggestionService extends SuggestionOperation {
   SuggestionService(INetworkManager<EmptyModel> networkManager) : _networkManager = networkManager;
 
   final INetworkManager<EmptyModel> _networkManager;
+
+  // @override
+  // Future<String> suggestionCreate({required SuggestionCreate requestSuggestion}) async {
+  //   final response = _networkManager.send<>(
+  //     ProductServicePath.createSuggestion.value,
+  //     parseModel: '',
+  //     method: RequestType.POST,
+  //   );
+  //   return response.data ?? '';
+  // }
 }

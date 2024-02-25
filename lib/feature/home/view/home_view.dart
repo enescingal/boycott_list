@@ -5,7 +5,7 @@ import 'package:boycott_list/feature/home/view_model/home_view_model.dart';
 import 'package:boycott_list/feature/home/view_model/state/home_state.dart';
 import 'package:boycott_list/product/navigation/app_router.dart';
 import 'package:boycott_list/product/state/base/base_state.dart';
-import 'package:boycott_list/product/widget/appBar/index.dart';
+import 'package:boycott_list/product/widget/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';

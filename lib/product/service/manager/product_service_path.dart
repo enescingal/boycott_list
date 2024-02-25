@@ -6,7 +6,10 @@ enum ProductServicePath {
   getCategory('/category'),
 
   /// Company
-  getCompany('/company');
+  getCompany('/company'),
+
+  /// Suggestion
+  createSuggestion('/suggestion');
 
   const ProductServicePath(this.value);
 

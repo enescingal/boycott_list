@@ -18,9 +18,8 @@ final class HomeViewModel extends BaseCubit<HomeState> {
         super(
           HomeState(
             /// TODO: first category add !
-            selectedCategory: CategoryModel(
-              name: LocaleKeys.home_all.tr(),
-            ),
+            selectedCategory: CategoryModel(name: LocaleKeys.home_all.tr()),
+
             searchText: '',
             // ignore: prefer_const_literals_to_create_immutables
             companyList: [],
@@ -125,25 +124,20 @@ final class HomeViewModel extends BaseCubit<HomeState> {
   void clearFilter({
     bool clearList = true,
     bool clearSearch = false,
-    bool clearCategory = false,
     bool clearPageIndex = true,
     bool clearEndOfFile = true,
+    bool clearCategory = false,
   }) {
     if (clearList) emit(state.copyWith(companyList: []));
+    if (clearCategory) emit(state.copyWith(categoryList: []));
     if (clearSearch) emit(state.copyWith(searchText: ''));
-    if (clearCategory) {
-      emit(
-        state.copyWith(
-          selectedCategory: state.categoryList.first,
-        ),
-      );
-    }
     if (clearPageIndex) pageIndex = 1;
     if (clearEndOfFile) endOfFile = false;
   }
 
   /// viewModelInitState
   Future<void> viewModelInitState() async {
+    clearFilter(clearCategory: true);
     await getCompanyList();
     await getCategoryList();
     return Future.value();

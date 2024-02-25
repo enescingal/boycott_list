@@ -38,9 +38,9 @@ mixin HomeViewMixin on BaseState<HomeView> {
   void initState() {
     super.initState();
     _productNetworkErrorManager = ProductNetworkErrorManager(context);
-    ProductStateItems.productNetworkManager.listenErrorState(
-      onErrorStatus: _productNetworkErrorManager.handleError,
-    );
+
+    _initNetwork();
+
     _viewModel = HomeViewModel(
       categoryOperation: CategoryService(productNetworkManager),
       companyOperation: CompanyService(productNetworkManager),
@@ -49,6 +49,15 @@ mixin HomeViewMixin on BaseState<HomeView> {
     viewModel
       ..viewModelInitState()
       ..changeLoading(true);
+  }
+
+  void _initNetwork() {
+    Future.delayed(Duration.zero, () {
+      ProductStateItems.productNetworkManager.acceptLanguage = context.locale.languageCode;
+      ProductStateItems.productNetworkManager.listenErrorState(
+        onErrorStatus: _productNetworkErrorManager.handleError,
+      );
+    });
   }
 
   @override
@@ -67,11 +76,15 @@ mixin HomeViewMixin on BaseState<HomeView> {
   }
 
   /// ShowLanguage
-  void showLanguage() {
-    LanguageDialog.show(
+  Future<void> showLanguage() async {
+    await LanguageDialog.show(
       context: context,
-      locales: (locales) {
-        ProductLocalization.updateLanguage(context: context, value: locales);
+      locales: (locales) async {
+        await ProductLocalization.updateLanguage(context: context, value: locales);
+        ProductStateItems.productNetworkManager.acceptLanguage = context.locale.languageCode;
+        await Future.delayed(Duration.zero, () {
+          viewModel.viewModelInitState();
+        });
       },
     );
   }
