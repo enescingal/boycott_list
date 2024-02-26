@@ -12,6 +12,7 @@ final class NormalAppBar extends StatelessWidget implements PreferredSizeWidget 
   const NormalAppBar({
     this.onTapLanguage,
     this.onTapBoycott,
+    this.onShowAd,
     super.key,
     this.showMenu = true,
     this.showBack = false,
@@ -22,6 +23,9 @@ final class NormalAppBar extends StatelessWidget implements PreferredSizeWidget 
 
   /// onTapBoycott
   final VoidCallback? onTapBoycott;
+
+  /// onTapBoycott
+  final VoidCallback? onShowAd;
 
   /// actions
   final bool showMenu;
@@ -81,7 +85,7 @@ final class NormalAppBar extends StatelessWidget implements PreferredSizeWidget 
         Icons.handshake,
         color: ColorName.green,
       ),
-      onTap: () {},
+      onTap: onShowAd,
     );
   }
 

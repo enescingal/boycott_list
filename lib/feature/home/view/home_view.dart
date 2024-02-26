@@ -58,6 +58,7 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     return NormalAppBar(
       onTapLanguage: showLanguage,
       onTapBoycott: showBoycott,
+      onShowAd: showInterstitialAd,
     );
   }
 
