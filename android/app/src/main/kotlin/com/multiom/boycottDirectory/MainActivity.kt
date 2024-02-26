@@ -1,4 +1,4 @@
-package com.multiom.boycott_list
+package com.multiom.boycottDirectory
 
 import io.flutter.embedding.android.FlutterActivity
 

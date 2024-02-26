@@ -1,6 +1,6 @@
 {
     "home": {
-        "appbarTitle": "Boykot Listesi",
+        "appbarTitle": "Boykot Rehberi",
         "why": "Neden",
         "all": "Hepsi",
         "menu": {
@@ -29,7 +29,7 @@
             "save": "Kaydet",
             "cancel": "Vazgeç",
             "ok": "Tamam",
-            "close":"Kapat"
+            "close": "Kapat"
         },
         "input": {
             "searchHome": "Barkod veya Marka adı yazınız"

@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kartal/kartal.dart';
 import 'package:logger/logger.dart';
 
@@ -45,6 +46,8 @@ final class ApplicationInitialize {
     // await ProductStateItems.productCache.init();
     // Depedency initialize
     // envied
+
+    await MobileAds.instance.initialize();
   }
 
   /// DO NOT CHANGE THIS METHOD
