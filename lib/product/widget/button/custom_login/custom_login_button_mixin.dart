@@ -1,7 +1,6 @@
 part of 'custom_login_button.dart';
 
-mixin _CustomLoginButtonMixin
-    on MountedMixin<CustomLoginButton>, State<CustomLoginButton> {
+mixin _CustomLoginButtonMixin on MountedMixin<CustomLoginButton>, State<CustomLoginButton> {
   final ValueNotifier<bool> _isLoadingNotifier = ValueNotifier<bool>(false);
 
   @override
