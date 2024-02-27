@@ -8,6 +8,7 @@ import 'package:boycott_list/product/widget/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gen/gen.dart';
 import 'package:kartal/kartal.dart';
 
@@ -96,9 +97,19 @@ class _CategoryViewState extends BaseState<CategoryView> with CategoryViewMixin 
           ),
           borderRadius: context.border.lowBorderRadius,
         ),
-        child: Text(
-          LocaleKeys.home_all.tr(),
-          textAlign: TextAlign.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              LocaleKeys.home_all.tr(),
+              textAlign: TextAlign.center,
+            ),
+            context.sized.emptySizedWidthBoxLow,
+            const Icon(
+              Icons.list_alt_rounded,
+              color: ColorName.green,
+            ),
+          ],
         ),
       ),
     );
@@ -131,16 +142,21 @@ class _CategoryViewState extends BaseState<CategoryView> with CategoryViewMixin 
     );
   }
 
-  Text _name(CategoryState state, int index) {
-    return Text(
-      state.categoryList[index].name ?? '',
-      textAlign: TextAlign.center,
+  Flexible _name(CategoryState state, int index) {
+    return Flexible(
+      child: Text(
+        state.categoryList[index].name ?? '',
+        textAlign: TextAlign.center,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 
-  CachedImage _image(CategoryState state, int index) {
-    return CachedImage(
-      imageUrl: state.categoryList[index].logo ?? '',
+  Widget _image(CategoryState state, int index) {
+    return SvgPicture.string(
+      state.categoryList[index].logo ?? '',
+      colorFilter: const ColorFilter.mode(ColorName.green, BlendMode.srcIn),
     );
   }
 }

@@ -69,7 +69,7 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
           children: [
             _searchArea(context),
             _category(context, state),
-            _companyList(context, state),
+            _company(context, state),
             if (state.isLoading) _loading(context),
           ],
         );
@@ -96,27 +96,31 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
     );
   }
 
-  Expanded _companyList(BuildContext context, HomeState state) {
+  Expanded _company(BuildContext context, HomeState state) {
     return Expanded(
       child: Padding(
         padding: context.padding.horizontalNormal,
         child: state.companyList.ext.isNotNullOrEmpty
-            ? ListView.builder(
-                controller: scrollController,
-                itemBuilder: (context, index) => Padding(
-                  padding: index == state.companyList.length - 1 ? context.padding.onlyBottomMedium : EdgeInsets.zero,
-                  child: CompanyWidget(
-                    company: state.companyList[index],
-                  ),
-                ),
-                itemCount: state.companyList.length,
-              )
+            ? _companyList(state)
             : !state.isLoading
                 ? EmptyCompanyWidget(
                     onTap: showBoycott,
                   )
                 : const SizedBox(),
       ),
+    );
+  }
+
+  ListView _companyList(HomeState state) {
+    return ListView.builder(
+      controller: scrollController,
+      itemBuilder: (context, index) => Padding(
+        padding: index == state.companyList.length - 1 ? context.padding.onlyBottomMedium : EdgeInsets.zero,
+        child: CompanyWidget(
+          company: state.companyList[index],
+        ),
+      ),
+      itemCount: state.companyList.length,
     );
   }
 

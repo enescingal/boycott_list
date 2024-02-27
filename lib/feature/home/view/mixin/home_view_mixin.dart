@@ -58,7 +58,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
   void dispose() {
     super.dispose();
     viewModel.searchEditingController.dispose();
-    viewModel.nameController.dispose();
+    viewModel.companyNameController.dispose();
     viewModel.descriptionController.dispose();
   }
 
@@ -127,9 +127,10 @@ mixin HomeViewMixin on BaseState<HomeView> {
         true,
         ScanMode.BARCODE,
       );
-      if (barcodeText.ext.isNotNullOrNoEmpty || barcodeText != '-1') {
+      if (barcodeText.ext.isNotNullOrNoEmpty && (barcodeText.length > 4 && barcodeText.length < 20)) {
         viewModel.searchEditingController.text = barcodeText;
         await viewModel.scanBarcode(barcodeText);
+        if (viewModel.state.companyList.isEmpty) viewModel.companyNameController.text = barcodeText;
       }
     }
   }
@@ -139,7 +140,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
     BoycottDialog.show(
       context: context,
       onTap: () async {
-        if (viewModel.nameController.text.ext.isNotNullOrNoEmpty) {
+        if (viewModel.companyNameController.text.ext.isNotNullOrNoEmpty) {
           final suggestion = await viewModel.saveSuggestion();
           if (suggestion && context.mounted) {
             await context.router.pop();
@@ -147,7 +148,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
           }
         }
       },
-      nameController: viewModel.nameController,
+      nameController: viewModel.companyNameController,
       descriptionController: viewModel.descriptionController,
     );
   }

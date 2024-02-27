@@ -73,7 +73,7 @@ final class NormalAppBar extends StatelessWidget implements PreferredSizeWidget 
       children: [
         _language(),
         _boycott(),
-        _ads(),
+        // _ads(),
       ],
     );
   }
