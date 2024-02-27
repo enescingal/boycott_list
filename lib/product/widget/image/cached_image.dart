@@ -50,7 +50,7 @@ final class CachedImage extends StatelessWidget {
   Container _decoration(ImageProvider<Object> imageProvider) {
     return Container(
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(8),
         image: DecorationImage(
           image: imageProvider,
           fit: BoxFit.cover,

@@ -42,7 +42,7 @@ final class HomeViewModel extends BaseCubit<HomeState> {
   final SuggestionOperation _suggestionOperation;
 
   /// nameController
-  TextEditingController nameController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
 
   /// descriptionController
   TextEditingController descriptionController = TextEditingController();
@@ -99,12 +99,12 @@ final class HomeViewModel extends BaseCubit<HomeState> {
   Future<bool> saveSuggestion() async {
     final response = await _suggestionOperation.suggestionCreate(
       requestSuggestion: SuggestionCreate(
-        name: nameController.text,
+        name: companyNameController.text,
         description: descriptionController.text.ext.isNotNullOrNoEmpty ? descriptionController.text : null,
       ),
     );
     if (response.id.ext.isNotNullOrNoEmpty) {
-      nameController.clear();
+      companyNameController.clear();
       descriptionController.clear();
       return true;
     } else {

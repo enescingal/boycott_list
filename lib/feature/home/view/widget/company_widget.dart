@@ -16,17 +16,22 @@ final class CompanyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: context.padding.onlyBottomLow,
-      padding: context.padding.low,
-      decoration: _decoration(context),
-      child: Row(
-        children: [
-          _image(),
-          context.sized.emptySizedWidthBoxLow,
-          _name(context),
-          _why(context),
-        ],
+    return GestureDetector(
+      onTap: () {
+        if (company.description.ext.isNotNullOrNoEmpty) onWhy(context);
+      },
+      child: Container(
+        margin: context.padding.onlyBottomLow,
+        padding: context.padding.low + context.padding.horizontalLow,
+        decoration: _decoration(context),
+        child: Row(
+          children: [
+            _image(),
+            context.sized.emptySizedWidthBoxLow3x,
+            _name(context),
+            if (company.description.ext.isNotNullOrNoEmpty) _why(context),
+          ],
+        ),
       ),
     );
   }
@@ -36,9 +41,9 @@ final class CompanyWidget extends StatelessWidget {
       onPressed: () {
         onWhy(context);
       },
-      icon: const Icon(
-        Icons.help,
-        color: ColorName.red,
+      icon: Icon(
+        Icons.arrow_right_rounded,
+        color: ColorName.black.withOpacity(.5),
       ),
     );
   }

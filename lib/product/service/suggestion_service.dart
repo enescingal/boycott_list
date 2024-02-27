@@ -1,3 +1,4 @@
+import 'package:boycott_list/product/init/config/app_environment.dart';
 import 'package:boycott_list/product/service/interface/suggestion_operation.dart';
 import 'package:boycott_list/product/service/manager/index.dart';
 import 'package:gen/gen.dart';
@@ -19,7 +20,7 @@ final class SuggestionService extends SuggestionOperation {
       method: RequestType.POST,
       options: Options(
         headers: {
-          'x-api-key': '18117f73-edc3-4287-bf4b-ea39984ff7c2',
+          'x-api-key': AppEnvironmentItems.apiKey.value,
         },
       ),
     );
